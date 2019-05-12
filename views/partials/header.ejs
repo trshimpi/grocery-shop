@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Grocery Shop</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script
+              src="https://code.jquery.com/jquery-2.2.4.min.js"
+              integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+              crossorigin="anonymous">
+            
+        </script>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    </head>
+    <style>
+        /*img {*/
+        /*    height:100px;*/
+        /*}*/
+        .card-img-top {
+            width: 100%;
+            height: 35vh;
+            object-fit: cover;
+            }
+        .quantity{
+            width:30%;
+        }
+        
+.fix-div{position:fixed; height:100%; width:100%; left:0; top:0; z-index:1;}
+#wrapper{position:relative; z-index:2; margin:100% 0 0;}
+    </style>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top" style="margin-bottom:5px">
+                <a class="navbar-brand" href="/">Grocery Shop</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <ul class="nav navbar-nav navbar-right">
+                          <% if(!currentUser){ %>
+                          <li><a class="nav-item nav-link" href="/products">Home</a></li>
+                          <!--<li><a class="nav-item nav-link" href="/user/cart">Cart</a></li>-->
+                          <!--<li><a class="nav-item nav-link" href="/user/orders">My orders</a></li>-->
+                          <% }else if(currentUser.username=="admin"){ %>
+                          <li><a class="nav-item nav-link active" href="/admin/products">Home <span class="sr-only">(current)</span></a>
+                          <li><a class="nav-item nav-link" href="/admin/products/new">Add product</a></li>
+                          <li><a class="nav-item nav-link" href="/admin/users">Show users</a></li>
+                          <li><a class="nav-item nav-link" href="/admin/users/star">Star Members</a></li>
+                          <% }else{ %>
+                          <li><a class="nav-item nav-link" href="/products">Home</a></li>
+                          <li><a class="nav-item nav-link" href="/user/cart">Cart</a></li>
+                          <li><a class="nav-item nav-link" href="/user/orders">My orders</a></li>
+                          <% } %>
+                    </ul>
+                    <div class="navbar-nav ml-md-auto">
+                        <% if(!currentUser){ %>
+                        <a class="nav-item nav-link" href="/login">LOGIN</a>
+                        <a class="nav-item nav-link" href="/register">SING UP</a>
+                        <% }else{ %>
+                        <a class="nav-item nav-link" href="#">Signed In as <%= currentUser.username %></a>
+                        <a class="nav-item nav-link" href="/logout">LOGOUT</a>
+                        <% } %>
+                    </div>
+               </div>
+       </nav>
+       <div class="container">
+           <% if(error && error.length >0){ %>
+               <div class="alert alert-danger" role="alert">
+                     <%= error %>
+                </div>
+            <% } %>
+            <% if(success && success.length >0){ %>
+               <div class="alert alert-success" role="alert">
+                    <%= success %>
+                </div>
+            <% } %>
+       </div>

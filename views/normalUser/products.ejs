@@ -1,0 +1,70 @@
+<% include ../partials/header %>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Grocery Shop</h4>
+            <form class="form" action="/search" method="POST">
+                
+                <div class="form-group">
+                   <input class="form-control" type="text" name="product" placeholder="product name" required>
+                </div>
+                <div class="form-group">
+                    <input class="form-control btn btn-primary" type="submit" value="Search">
+                </div>
+            
+            </form>
+
+            <hr>
+            <div class="list-group">
+                <li class="list-group-item"><a href="/products/fruits">Fruits</a></li>
+                <li class="list-group-item"><a href="/products/vegetables">Vegetables</a></li>
+                <li class="list-group-item"><a href="/products/pulses">Pulses</a></li>
+                <li class="list-group-item"><a href="/products/beverages">Beverages</a></li>
+                <li class="list-group-item"><a href="/products/packagedFood">Packaged Food</a></li>
+            </div>
+        </div>
+        <div class="col-md-9">
+               <div class="d-flex flex-wrap">
+                       <% products.forEach(function(product){%>
+                         <div class="col-md-4 col-sm-6 col-lg-4 col-xs-6">
+                             <div class="card">
+                                 <div class="img-thumbnail">
+                                     <div class="card-img-top">
+                                    <img style="max-height:250px" class="img-fluid" src="<%= product.image %>">
+                                    </div>
+                                 </div> 
+                                  <div class="card-body">
+                                    <h4 class="card-title"><%= product.name %></h4>
+                                    <p class="card-text">Price:Rs.<%= product.price %></p>
+                                    <% if(currentUser){ %>
+                                    <form class="form-inline" action="/user/cart" method="POST">
+                
+                                        <div class="form-group">
+                                           <input class="form-control" type="hidden" name="userid" value="<%= currentUser._id %>" required>
+                                        </div>
+                                        <div class="form-group">
+                                           <input class="form-control" type="hidden" name="productid" value="<%= product._id %>" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <input class="form-control btn btn-primary" type="submit" value="Add to Cart">
+                                        </div>
+                                    
+                                    </form>
+                                    <% }else{ %>
+                                    
+                                    <a href="/login" class="btn btn-primary">Add to Cart</a>
+                                    <% } %>
+                                  </div>
+                                
+                                
+                             </div>
+                        </div>
+                    <% }) %>
+ 
+                </div>
+            
+        </div>
+    </div>
+</div>
